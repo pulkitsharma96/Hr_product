@@ -185,10 +185,11 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
     //   ),
     // );
     body: Container(
-      height: 90,
-        width: 60,
+      height: 900,
+        width: 600,
         decoration: BoxDecoration(
-          image: DecorationImage(image: AssetImage('assets/images/login.png')),
+          image: DecorationImage(image: AssetImage('assets/images/login.png')
+          ),
         ),
     ),
     );
