@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hr_product/home_Srcreen.dart';
+import 'package:hr_product/signup_Screen.dart';
+
+import 'forgotPassword_Screen.dart';
 
 class LogIn_Screen extends StatefulWidget {
   const LogIn_Screen({super.key});
@@ -10,6 +15,23 @@ class LogIn_Screen extends StatefulWidget {
 class _LogIn_ScreenState extends State<LogIn_Screen> {
 
   bool isCheck= false;
+  final TextEditingController userController = TextEditingController();
+  final TextEditingController passController = TextEditingController();
+
+  bool _validationLogin() {
+    if (userController.text.isEmpty) {
+      Fluttertoast.showToast(msg: "Enter email");
+      return false;
+    }
+    else if (passController.text.length < 5) {
+      Fluttertoast.showToast(msg: "enter atleast 6 character in password");
+      return false;
+    }
+    else {
+      Fluttertoast.showToast(msg: "Login successful!");
+      return true;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,67 +41,68 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
-      body: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints constraints){
-        bool isMobile = constraints.maxWidth <800;
+      body: Center(
+        child: LayoutBuilder(
+          builder: (BuildContext context, BoxConstraints constraints){
+            bool isMobile = constraints.maxWidth <800;
 
-        return SingleChildScrollView(
-          child: Container(
-            width: screenWidth,
-              padding: EdgeInsets.all(36),
-            margin:  EdgeInsets.only(left: 30,right: 30),
-
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(4),
-              color: Colors.white,
-            ),
-            child: isMobile
-            ? Column(
-              children: [
-                Container(
-                  margin: EdgeInsets.all(25),
-                  height: 200,
+            return SingleChildScrollView(
+              child: Container(
                   width: screenWidth,
+                  margin:  EdgeInsets.all(27),
+
                   decoration: BoxDecoration(
-                    image: DecorationImage(image: AssetImage('assets/images/login.png'),
-                      fit: BoxFit.cover,
-                    ),
+                    borderRadius: BorderRadius.circular(4),
+                    color: Colors.white,
                   ),
-                ),
-                _LoginForm(screenWidth,screenHeight),
-              ],
-            )
-                : Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child:
-                  Container(
-                    height: screenHeight*0.65,
-                    decoration: BoxDecoration(
-                      color: Colors.pink,
-                      image: DecorationImage(image: AssetImage('assets/images/login.png')
+                  child: isMobile
+                      ? Column(
+                    children: [
+                      Container(
+                        margin: EdgeInsets.all(25),
+                        height: 150,
+                        width: screenWidth,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(image: AssetImage('assets/images/login.png'),
+
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                ),
-                Expanded(
-                  flex: 2,
-                    child: _LoginForm(screenWidth,screenHeight)),
-              ],
-            )
-          ),
-        );
-        },
+                      _LoginForm(screenWidth,screenHeight),
+                    ],
+                  )
+                      : Row(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child:
+                        Container(
+                          height: screenHeight*0.72,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(image: AssetImage('assets/images/login.png')
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                          flex: 1,
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 80),
+                            child: _LoginForm(screenWidth,screenHeight),
+                          )),
+                    ],
+                  )
+              ),
+            );
+          },
+        ),
       ),
     );
   }
 
   Widget _LoginForm(double screenwidth,double screenheight){
     return  Container(
-      height: screenheight*0.75,
-        margin:  EdgeInsets.all(30),
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(18),
         decoration: BoxDecoration(
           color: Colors.white,
           boxShadow: [
@@ -89,7 +112,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
               color: Colors.grey.withOpacity(0.7),
             )
           ],
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(10),
         ),
 
         child:
@@ -104,6 +127,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
             Container(
               height: 42,
               child: TextFormField(
+                controller: userController,
                 cursorColor: Colors.grey,
                 decoration: InputDecoration(
                   hintText: "you@example.com",
@@ -123,14 +147,23 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Password",style: TextStyle(fontWeight: FontWeight.bold)),
-                Text("Forgot Password",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.deepPurpleAccent
-                    ,decorationColor: Colors.deepPurpleAccent,decoration: TextDecoration.underline)),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ForgotPasswordScreen()));
+                  },
+                  child: Text("Forgot Password",style: TextStyle(fontWeight: FontWeight.bold,color: Colors.deepPurpleAccent
+                      ,decorationColor: Colors.deepPurpleAccent,decoration: TextDecoration.underline)),
+                ),
               ],
             ),
             SizedBox(height: 3),
             Container(
               height: 42,
               child: TextFormField(
+                controller: passController,
                 cursorColor: Colors.grey,
                 decoration: InputDecoration(
                   hintText: "Enter 6 character or more",
@@ -169,12 +202,12 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                   ),
 
                   onPressed: (){
-                    // if(_validationLogin()){
-                    //   Navigator.push(
-                    //       context,
-                    //       MaterialPageRoute(
-                    //           builder: (context) => HomeScreen()));
-                    // }
+                    if(_validationLogin()){
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    }
                   },
                   child: Text("LOGIN",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
             ),
@@ -183,9 +216,17 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Doesn't have an account yet?",style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w500)),
-                Text(" Sign,Up",style: TextStyle(color: Colors.deepPurpleAccent,
-                    decoration: TextDecoration.underline,
-                    fontWeight: FontWeight.bold,decorationColor: Colors.deepPurpleAccent)),
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => SignUpScreen()));
+                  },
+                  child: Text(" Sign,Up",style: TextStyle(color: Colors.deepPurpleAccent,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,decorationColor: Colors.deepPurpleAccent)),
+                ),
               ],
             ),
           ],
