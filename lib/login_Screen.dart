@@ -24,7 +24,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
       return false;
     }
     else if (passController.text.length < 6) {
-      Fluttertoast.showToast(msg: "enter atleast 6 character in password");
+      Fluttertoast.showToast(msg: "enter atleast 6 character");
       return false;
     }
     else {
@@ -186,7 +186,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                   value: isCheck,
                   onChanged: (value){
                     setState(() {
-                      isCheck = value?? true;
+                      isCheck = !isCheck;
                     });
                   }),
               Text("Remember me"),
