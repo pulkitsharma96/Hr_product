@@ -23,7 +23,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
       Fluttertoast.showToast(msg: "Enter email");
       return false;
     }
-    else if (passController.text.length < 5) {
+    else if (passController.text.length < 6) {
       Fluttertoast.showToast(msg: "enter atleast 6 character in password");
       return false;
     }
@@ -138,7 +138,8 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey,width: 2),),
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: BorderSide(color: Colors.grey),),
                 ),
               ),
             ),
@@ -174,7 +175,8 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                     borderSide: BorderSide(color: Colors.grey),
                   ),
                   focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey,width: 2),),
+                    borderRadius: BorderRadius.circular(7),
+                    borderSide: BorderSide(color: Colors.grey),),
                 ),
               ),
             ),
@@ -191,6 +193,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
             ]),
             SizedBox(height: 14),
             SizedBox(
+              height: 43,
               width: screenwidth,
               child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -198,7 +201,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                       borderRadius: BorderRadius.circular(7),
                     ),
                     backgroundColor: Colors.deepPurpleAccent,
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                    padding: EdgeInsets.symmetric(horizontal: 16),
                   ),
 
                   onPressed: (){
