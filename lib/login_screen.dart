@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:hr_product/sign_up_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -6,6 +8,32 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void _validateLogin() {
+    if (_emailController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Enter email",
+        toastLength: Toast.LENGTH_SHORT,
+
+      );
+    } else if (_passwordController.text.isEmpty) {
+      Fluttertoast.showToast(
+        msg: "Enter password",
+
+      );
+    } else {
+      Fluttertoast.showToast(
+        msg: "Login successful",
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        backgroundColor: Colors.green,
+        textColor: Colors.white,
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,8 +56,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding:
-                      const EdgeInsets.symmetric(vertical: 20.0),
+                      padding: const EdgeInsets.symmetric(vertical: 20.0),
                       child: Image.asset(
                         'assets/Images/loginImage.png',
                         height: 200,
@@ -39,17 +66,15 @@ class _LoginScreenState extends State<LoginScreen> {
                     _buildLoginForm(),
                   ],
                 )
-
                     : Row(
                   children: [
                     Expanded(
                       flex: 2,
                       child: Padding(
-                        padding:
-                        const EdgeInsets.symmetric(vertical: 20.0),
+                        padding: const EdgeInsets.symmetric(vertical: 20.0),
                         child: Image.asset(
                           'assets/Images/loginImage.png',
-                          height: 400,
+                          height: 380,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -67,7 +92,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
 
   Widget _buildLoginForm() {
     return Card(
@@ -99,8 +123,9 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: 5),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: _emailController,
+              decoration: const InputDecoration(
                 hintText: 'you@example.com',
                 border: OutlineInputBorder(),
               ),
@@ -127,16 +152,17 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ],
             ),
-            const TextField(
+            TextField(
+              controller: _passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 hintText: 'Enter 6 characters or more',
                 border: OutlineInputBorder(),
               ),
             ),
             const SizedBox(height: 15),
             ElevatedButton(
-              onPressed: () {},
+              onPressed: _validateLogin,
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.deepPurpleAccent,
                 minimumSize: const Size(double.infinity, 50),
@@ -160,7 +186,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                 ),
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => SignUpScreen()),
+                    );
+                  },
                   child: const Text(
                     "Sign Up",
                     style: TextStyle(
