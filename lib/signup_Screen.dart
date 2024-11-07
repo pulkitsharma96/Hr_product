@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'home_Srcreen.dart';
+import 'hr_dashboard_screen.dart';
 import 'login_Screen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -275,7 +275,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => HomeScreen()));
+                                builder: (context) => HrDashboardScreen()));
                       }
                     },
                     child: Text("SIGNUP",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),

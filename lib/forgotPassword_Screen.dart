@@ -38,6 +38,12 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        leading: IconButton(onPressed: (){
+          Navigator.pop(context);
+        }, icon:  Icon(Icons.arrow_back)),
+      ),
       body: Center(
         child: LayoutBuilder(
           builder: (BuildContext context, BoxConstraints constraints){

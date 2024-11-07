@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:hr_product/home_Srcreen.dart';
+import 'package:hr_product/hr_dashboard_screen.dart';
 import 'package:hr_product/signup_Screen.dart';
 
 import 'forgotPassword_Screen.dart';
@@ -209,7 +209,7 @@ class _LogIn_ScreenState extends State<LogIn_Screen> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
+                              builder: (context) => HrDashboardScreen()));
                     }
                   },
                   child: Text("LOGIN",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
