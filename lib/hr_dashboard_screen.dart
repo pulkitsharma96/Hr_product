@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
+import 'package:hr_product/DrawerFile.dart';
 import 'package:pie_chart/pie_chart.dart';
 
 class HrDashboardScreen extends StatefulWidget {
@@ -11,23 +12,12 @@ class HrDashboardScreen extends StatefulWidget {
 
 class _HrDashboardScreenState extends State<HrDashboardScreen> {
 
-  int _selectedItem =-1;
-
   Map<String, double> dataMap = {
     "Applied": 50,
     "Interview 1": 30,
     "Interview 2": 20,
     "Offer": 15,
   };
-
-  List<Map<String,dynamic>> sidebar_data = [
-    {'text' : 'Dashboard','icon':Icons.home_outlined},
-    {'text' : 'Resumes','icon': Icons.contact_page_outlined},
-    {'text' : 'Applicant Tracking','icon':Icons.spatial_tracking_outlined},
-    {'text' : 'Interview Scheduling','icon':Icons.calendar_month_outlined},
-    {'text' : 'Interview Assignment','icon':Icons.assignment_outlined},
-    {'text' : 'Report','icon':Icons.report_gmailerrorred_rounded},
-  ];
 
   List<OrdinalData> pieDataList = [
     OrdinalData(
@@ -49,7 +39,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints){
-        bool isMobile = constraints.maxWidth<700;
+        bool isMobile = constraints.maxWidth<600;
         return  Scaffold(
           backgroundColor: Colors.white,
 
@@ -69,7 +59,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
             ],
           )
           : null,
-         drawer: isMobile? AppDrawer() : null,
+         drawer: isMobile? DrawerScreen() : null,
          body: SingleChildScrollView(
            child: Container(
              child: isMobile
@@ -77,10 +67,13 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                padding: EdgeInsets.all(10),
                    child: Column(
                      children: [
-                   HRProfile(screenWidth,isMobile),
-                   _DashBoardCards(isMobile),
-                   Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
-                   DataWithPieChart(screenWidth,isMobile),
+                       HRProfile(screenWidth,isMobile),
+                       SizedBox(height: 20,),
+                      _DashBoardCards(isMobile),
+                       SizedBox(height: 10,),
+                       Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                       SizedBox(height: 10,),
+                       DataWithPieChart(screenWidth,isMobile),
                      ],
                    ),
                  )
@@ -91,7 +84,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                  if(!isMobile) SizedBox(
                    width: 250,
                      height: screenHeight,
-                     child: AppDrawer()
+                     child: DrawerScreen(),
                  ),
                  Expanded(
                    child: Column(
@@ -133,7 +126,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                                  HRProfile(screenWidth,isMobile),
                                ],
                              ),
-                             Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25),),
+                             Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                              DataWithPieChart(screenWidth,isMobile),
                            ],
                          ),
@@ -149,54 +142,6 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
 
         );
         }
-    );
-  }
-  Widget AppDrawer(){
-    return Drawer(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero
-      ),
-      backgroundColor: Colors.deepPurpleAccent,
-      child: ListView(
-       children: [
-         Container(
-           height: 60,
-           child: DrawerHeader(
-             decoration: BoxDecoration(
-               color: Colors.deepPurpleAccent,
-               borderRadius: BorderRadius.zero,
-             ),
-             child: Text(
-               'HR Admin',
-               style: TextStyle(
-                 color: Colors.white,
-                 fontSize: 26,
-               ),
-             ),
-           ),
-         ),
-         ...sidebar_data.asMap().entries.map((entry){
-           int index = entry.key;
-           var item = entry.value;
-           return ListTile(
-           leading: Icon(item['icon'],color: _selectedItem == index
-               ? Colors.amber
-               : Colors.white,),
-             title: Text(item['text'],style: TextStyle(
-               color: _selectedItem == index
-                 ? Colors.amber
-                 : Colors.white,
-             fontWeight: FontWeight.w500),),
-             onTap: (){
-             setState(() {
-               _selectedItem = index;
-             });
-
-             },
-           );
-    }).toList(),
-       ],
-      ),
     );
   }
   Widget Infotmation_DoughNut(String title, int count){
@@ -262,7 +207,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
       shrinkWrap: true,
       crossAxisCount: 2,
       mainAxisSpacing: 10,
-      crossAxisSpacing: 25,
+      crossAxisSpacing: 10,
       childAspectRatio: isMobile? 1.25: 2.6,
       physics: NeverScrollableScrollPhysics(),
 
@@ -350,7 +295,6 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
   Widget DataWithPieChart(double screenWidth,bool isMobile){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
-        margin: EdgeInsets.only(top: 10),
       width: isMobile? 340: 600,
         decoration: BoxDecoration(
             color: Colors.white,
@@ -379,9 +323,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
         chartValuesOptions: ChartValuesOptions(
           showChartValues: false,
         ),
-
       )
-          
     );
   }
 
