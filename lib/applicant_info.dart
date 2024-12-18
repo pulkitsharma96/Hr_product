@@ -11,15 +11,15 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
 
   List<Map<String, dynamic>> data = [
     {"APPLICANT ID": "D1", "APPLICANT NAME": "Jim",  "AGE": "24","Applied Post": "Senior Software Engineer","GENDER": "Male" ,
-      "CURRENT POST": "Product Engineer","skills": "Java\nReact\nFlutter\nMySQL\nExcel\nMS Office" },
+      "CURRENT POST": "Product Engineer","skills": "Java, React, Flutter, MySQL, Excel, MS Office,Java, React, Flutter, MySQL" },
     {"APPLICANT ID": "D2", "APPLICANT NAME": "Patrick", "AGE": "21", "Applied Post": "Senior Software Engineer","GENDER": "Male","CURRENT POST": "Product Engineer",
-      "skills": "Java\nReact\nFlutter\nMySQL\nExcel\nMS Office"  },
+      "skills": "Java, React, Flutter, MySQL, Excel, MS Office"  },
     {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "Applied Post": "Senior Software Engineer","GENDER": "Male","CURRENT POST": "Product Engineer",
-      "skills": "Java\nReact\nFlutter\nMySQL\nExcel\nMS Office"  },
+      "skills": "Java, React, Flutter, MySQL, Excel, MS Office"},
     {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22","Applied Post": "Senior Software Engineer", "GENDER": "Female",
-      "CURRENT POST": "Product Engineer","skills": "Java\nReact\nFlutter\nMySQL\nExcel\nMS Office"  },
+      "CURRENT POST": "Product Engineer","skills": "Java, React, Flutter, MySQL, Excel, MS Office" },
     {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "Applied Post": "Senior Software Engineer","GENDER": "Male",
-      "CURRENT POST": "Product Engineer", "skills": "Java\nReact\nFlutter\nMySQL\nExcel\nMS Office" },
+      "CURRENT POST": "Product Engineer", "skills": "Java, React, Flutter, MySQL, Excel, MS Office"},
   ];
 
   List<Map<String,dynamic>> Resume_details = [
@@ -32,7 +32,6 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeight = MediaQuery.sizeOf(context).height;
     double screenWidth = MediaQuery.sizeOf(context).width;
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
@@ -51,38 +50,39 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
             body: SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.all(10),
-                child: isMobile
-                    ? Column(
-                  children: [
-                    Profile(),
-                    Contact(screenWidth),
-                    Skills(screenWidth),
-                    Experience(screenWidth),
-                    Qualification(screenWidth),
-                    Projects(screenWidth),
-                    Language(screenWidth),
-                  ],
-                )
-                    : Column(
+                child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Profile(),
+                        Profile(isMobile),
                         Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Contact(screenWidth*0.27),
-                          Skills(screenWidth*0.27),
-                          Experience(screenWidth*0.27),
+                          Container(
+                            width: screenWidth*0.35,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Skills(isMobile),
+                                Experience(isMobile),
+                                Language(),
+                              ],
+                            ),
+                          ),
+                          Container(
+                            width: screenWidth*0.59,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Profile_Summary(isMobile),
+                                Qualification(),
+                                Projects(isMobile),
+                              ],
+                            ),
+                          )
+
                         ],
                       ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Qualification(screenWidth*0.27),
-                            Projects(screenWidth*0.27),
-                            Language(screenWidth*0.27),
-                          ],
-                        )
                       ],
                     )
               ),
@@ -91,111 +91,102 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
         }
     );
   }
-  Widget Profile(){
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+  Widget Profile(isMobile){
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left:10,bottom: 10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: AssetImage("assets/images/resume_image1.jpg"),
-              ),
-              SizedBox(width: 50,),
-              Column(
+             isMobile
+                 ?Column(
+               mainAxisAlignment: MainAxisAlignment.start,
+                   children: [
+                   CircleAvatar(
+                   radius: 40,
+                   backgroundImage: AssetImage("assets/images/resume_image1.jpg"),
+                   ),
+                   Text(data[0]["APPLICANT NAME"],style: TextStyle(fontSize: 24),),
+                   Text(data[0]["CURRENT POST"],style: TextStyle(fontSize : 14),),
+                   ],
+                 )
+                 : Row(
+               mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text(data[0]["APPLICANT NAME"],style: TextStyle(fontSize: 34),),
-                  Text(data[0]["CURRENT POST"],style: TextStyle(fontSize: 16),),
+                  CircleAvatar(
+                    radius: 50,
+                    backgroundImage: AssetImage("assets/images/resume_image1.jpg"),
+                  ),
+                  SizedBox(width: 25,),
+                  Column(
+                    children: [
+                      Text(data[0]["APPLICANT NAME"],style: TextStyle(fontSize: 38),),
+                      Text(data[0]["CURRENT POST"],style: TextStyle(fontSize : 18),),
+                    ],
+                  ),
                 ],
+              ),
+              Spacer(),
+              Container(
+                height: 90,
+                width: 190,
+                child: ListView.builder(
+                    itemCount: Resume_details.length,
+                    itemBuilder: (context,index){
+                      return Container(
+                        padding: EdgeInsets.only(top: 3),
+                        child: Row(
+                          children: [
+                            Icon(Resume_details[index]["icon"],color: Colors.black,size: 20,),
+                            SizedBox(width: 18),
+                            Text(Resume_details[index]["text"],style: TextStyle(color: Colors.black,fontSize: 14),),
+                          ]
+                        ),
+                      );
+                    }),
               ),
             ],
           ),
-          SizedBox(height: 20,),
-          Divider(color: Colors.deepPurpleAccent,thickness: 1,height: 1,),
-          SizedBox(height: 5),
-          Text("Applied Post : "+data[0]["Applied Post"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500),),
-          SizedBox(height: 5),
-          Divider(color: Colors.deepPurpleAccent,thickness: 1,height: 1,),
-
-        ],
-      ),
-    );
-  }
-  Widget Contact(screenWidth){
-    return Container(
-      height: 220,
-      width: screenWidth,
-      margin: EdgeInsets.all(18),
-      padding: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text("Contact Details : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-          Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
-          Container(
-           height: 165,
-            child: ListView.builder(
-              itemCount: Resume_details.length,
-                itemBuilder: (context,index){
-              return ListTile(
-                dense: true,
-                contentPadding: EdgeInsets.zero,
-                    leading: Icon(Resume_details[index]["icon"],color: Colors.black,size: 21,),
-                    title: Text(Resume_details[index]["text"],style: TextStyle(color: Colors.black,fontSize: 16),),
-              );
-            }),
-          ),
-        ],
-      )
-    );
-  }
-  Widget Skills(screenWidth){
-    return Container(
-        height: 220,
-        width: screenWidth,
-        margin: EdgeInsets.all(18),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-          borderRadius: BorderRadius.circular(5),
         ),
+        Container(
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            color: Colors.deepPurpleAccent
+          ),
+          child:  Text("Applied Post : "+data[0]["Applied Post"],style: TextStyle(fontSize: 20,fontWeight: FontWeight.w500,color: Colors.white),),
+        ),
+      ],
+    );
+  }
+  Widget Skills(isMobile){
+    return Container(
+       // height: isMobile?150:130,
+        padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Skills : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-            Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              padding: EdgeInsets.all(10),
-              height: 165,
+              height: isMobile?100:80,
               child: Text(data[0]["skills"],style: TextStyle(color: Colors.black,fontSize: 16),),
             ),
           ],
         )
     );
   }
-  Widget Experience(screenWidth){
+  Widget Experience(isMobile){
     return Container(
-        height: 220,
-        width: screenWidth,
-        margin: EdgeInsets.all(18),
+       // height: isMobile?290:220,
         padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-          borderRadius: BorderRadius.circular(5),
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Experience : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-            Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              height: 165,
+              height: isMobile?235:165,
               child: ListView.builder(
                   itemCount: 2,
                   itemBuilder: (context,index){
@@ -218,23 +209,43 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
         )
     );
   }
-  Widget Qualification(screenWidth){
+  Widget Profile_Summary(isMobile){
     return Container(
-        height: 220,
-        width: screenWidth,
-        margin: EdgeInsets.only(left: 18,right: 18,bottom: 18),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-          borderRadius: BorderRadius.circular(5),
+      //height: isMobile?220:130,
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.only(left: 18),
+      child: Container(
+        height: isMobile?190:90,
+        child: ListView(
+          children: [
+            Text("Profile Summary : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
+            Padding(
+              padding: EdgeInsets.only(top:8),
+              child: Text("My passion for sustainable design and innovation drives my commitment to excellence in the "
+                  "field of product engineering. Focused on product development, prototyping, and testing. Developed "
+                  "and refined products based on market needs and feedback. Created prototypes to validate design concepts and gather user feedback."),
+            )
+          ],
         ),
+      )
+
+
+
+    );
+  }
+  Widget Qualification(){
+    return Container(
+       // height: 220,
+        padding: EdgeInsets.all(10),
+        margin: EdgeInsets.only(left: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Qualification : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-            Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              height: 165,
+              height: 175,
               child: ListView.builder(
                   itemCount: 2,
                   itemBuilder: (context,index){
@@ -263,23 +274,18 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
         )
     );
   }
-  Widget Projects(screenWidth){
+  Widget Projects(isMobile){
     return Container(
-        height: 220,
-        width: screenWidth,
-        margin: EdgeInsets.only(left: 18,right: 18,bottom: 18),
+       // height: isMobile?290:220,
         padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-          borderRadius: BorderRadius.circular(5),
-        ),
+        margin: EdgeInsets.only(left: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Projects : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-            Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              height: 165,
+              height: isMobile?235:165,
               child: ListView.builder(
                   itemCount: 2,
                   itemBuilder: (context,index){
@@ -295,25 +301,18 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
         )
     );
   }
-  Widget Language(screenWidth){
+  Widget Language(){
     return Container(
-        width: screenWidth,
-        margin: EdgeInsets.only(left: 18,right: 18,bottom: 18),
         padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          border: Border.all(width: 1,color: Colors.deepPurpleAccent),
-          borderRadius: BorderRadius.circular(5),
-        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Language Known : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
-            Divider(thickness: 1,color: Colors.deepPurpleAccent,height: 1,endIndent: 8,),
+            Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              padding: EdgeInsets.all(10),
               height: 165,
               child: Text("Hindi : Native\nEnglish : Intermediate\nFrench : Beginner",style: TextStyle(color: Colors.black,fontSize: 16),),
-            ),
+           ),
           ],
         )
     );

@@ -188,40 +188,38 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
   Widget Person_data(){
     return  SingleChildScrollView(
       scrollDirection: Axis.horizontal,
-      child: Expanded(
-        child: DataTable(
-          showCheckboxColumn: false,
-          headingRowColor: MaterialStateProperty.all(Colors.grey.shade100),
-          dividerThickness: 0,
-          border: TableBorder(
-            top: BorderSide(color: Colors.grey.shade300),
-            bottom: BorderSide(color: Colors.grey.shade300),
-            horizontalInside: BorderSide(color: Colors.grey.shade300),
-          ),
-          columns: [
-            DataColumn(label: Text('SELECT',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-            DataColumn(label: Text('APPLICANT ID',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-            DataColumn(label: Text('APPLICANT NAME',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-            DataColumn(label: Text('AGE',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-            DataColumn(label: Text('GENDER',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-           ],
-          rows: data.map((row) {
-            return DataRow(
-              onSelectChanged: (selected){
-                if(selected==true){
-                   Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicantInfoScreen() ));
-                }
-              },
-              cells: [
-                DataCell(Checkbox(value: false, onChanged: (value) {})),
-                DataCell(Text(row['APPLICANT ID'])),
-                DataCell(Text(row['APPLICANT NAME'])),
-                DataCell(Text(row['AGE'])),
-                DataCell(Text(row['GENDER'])),
-              ],
-            );
-          }).toList(),
+      child: DataTable(
+        showCheckboxColumn: false,
+        headingRowColor: MaterialStateProperty.all(Colors.grey.shade100),
+        dividerThickness: 0,
+        border: TableBorder(
+          top: BorderSide(color: Colors.grey.shade300),
+          bottom: BorderSide(color: Colors.grey.shade300),
+          horizontalInside: BorderSide(color: Colors.grey.shade300),
         ),
+        columns: [
+          DataColumn(label: Text('SELECT',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+          DataColumn(label: Text('APPLICANT ID',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+          DataColumn(label: Text('APPLICANT NAME',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+          DataColumn(label: Text('AGE',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+          DataColumn(label: Text('GENDER',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+         ],
+        rows: data.map((row) {
+          return DataRow(
+            onSelectChanged: (selected){
+              if(selected==true){
+                 Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicantInfoScreen() ));
+              }
+            },
+            cells: [
+              DataCell(Checkbox(value: false, onChanged: (value) {})),
+              DataCell(Text(row['APPLICANT ID'])),
+              DataCell(Text(row['APPLICANT NAME'])),
+              DataCell(Text(row['AGE'])),
+              DataCell(Text(row['GENDER'])),
+            ],
+          );
+        }).toList(),
       ),
     );
   }

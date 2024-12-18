@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr_product/hr_dashboard_screen.dart';
+import 'package:hr_product/login_Screen.dart';
 import 'package:hr_product/resumeManage_Screen.dart';
 
 class DrawerScreen extends StatefulWidget {
@@ -19,6 +20,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
     {'text' : 'Interview Scheduling','icon':Icons.calendar_month_outlined,'screen': HrDashboardScreen()},
     {'text' : 'Interview Assignment','icon':Icons.assignment_outlined,'screen': HrDashboardScreen()},
     {'text' : 'Report','icon':Icons.report_gmailerrorred_rounded,'screen': HrDashboardScreen()},
+    {'text' : 'Logout','icon':Icons.logout_rounded,'screen': LogIn_Screen()},
   ];
 
   @override
