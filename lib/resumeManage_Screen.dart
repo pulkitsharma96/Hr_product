@@ -17,6 +17,26 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
     {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "GENDER": "Male", },
     {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22", "GENDER": "Female",},
     {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "GENDER": "Male",},
+    {"APPLICANT ID": "D1", "APPLICANT NAME": "Jim",     "AGE": "24", "GENDER": "Male" , },
+    {"APPLICANT ID": "D2", "APPLICANT NAME": "Patrick", "AGE": "21", "GENDER": "Male", },
+    {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "GENDER": "Male", },
+    {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22", "GENDER": "Female",},
+    {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "GENDER": "Male",},
+    {"APPLICANT ID": "D1", "APPLICANT NAME": "Jim",     "AGE": "24", "GENDER": "Male" , },
+    {"APPLICANT ID": "D2", "APPLICANT NAME": "Patrick", "AGE": "21", "GENDER": "Male", },
+    {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "GENDER": "Male", },
+    {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22", "GENDER": "Female",},
+    {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "GENDER": "Male",},
+    {"APPLICANT ID": "D1", "APPLICANT NAME": "Jim",     "AGE": "24", "GENDER": "Male" , },
+    {"APPLICANT ID": "D2", "APPLICANT NAME": "Patrick", "AGE": "21", "GENDER": "Male", },
+    {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "GENDER": "Male", },
+    {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22", "GENDER": "Female",},
+    {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "GENDER": "Male",},
+    {"APPLICANT ID": "D1", "APPLICANT NAME": "Jim",     "AGE": "24", "GENDER": "Male" , },
+    {"APPLICANT ID": "D2", "APPLICANT NAME": "Patrick", "AGE": "21", "GENDER": "Male", },
+    {"APPLICANT ID": "D3", "APPLICANT NAME": "Rick",    "AGE": "28", "GENDER": "Male", },
+    {"APPLICANT ID": "D4", "APPLICANT NAME": "Patrica", "AGE": "22", "GENDER": "Female",},
+    {"APPLICANT ID": "D5", "APPLICANT NAME": "Bob Moss","AGE": "30", "GENDER": "Male",},
   ];
 
   @override
@@ -29,7 +49,6 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
           bool isMobile = constraints.maxWidth<600;
           return  Scaffold(
             backgroundColor: Colors.white,
-
             appBar: isMobile? AppBar(
               backgroundColor: Colors.white,
               title: Text("Resume Screen",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 22),),
@@ -40,6 +59,7 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
             drawer: isMobile? DrawerScreen() : null,
             body: SingleChildScrollView(
               child: Container(
+                height: screenHeight,
                   child: isMobile
                       ?Padding(
                     padding: EdgeInsets.all(10),
@@ -47,7 +67,7 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
                       children: [
                         BulkDataManage(),
                         SizedBox(height: 20,),
-                        Person_data()
+                        Person_data(screenWidth,isMobile)
                       ],
                     ),
                   )
@@ -79,7 +99,7 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
                                   child: BulkDataManage(),
                                 ),
                                 SizedBox(height: 20,),
-                                Person_data(),
+                                Person_data(screenWidth , isMobile),
                               ],
                             )
                           ],
@@ -88,7 +108,6 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
                     ],)
               ),
             ),
-
           );
         }
     );
@@ -139,17 +158,17 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
                 ),
                 child: PopupMenuButton<String>(
                   color: Colors.white,
-                  offset:  Offset(0, 35),
+                  offset:  Offset(18,35),
                   itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
                     PopupMenuItem(
                       height: 1,
-                      padding: EdgeInsets.fromLTRB(10,0, 7,0),
+                      padding: EdgeInsets.symmetric(horizontal: 6.5),
                       child: Text('Rejection Email',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                     ),
                     PopupMenuDivider(),
                     PopupMenuItem(
                       height: 1,
-                      padding: EdgeInsets.fromLTRB(10,0, 7,0),
+                      padding:  EdgeInsets.symmetric(horizontal: 6.5),
                       child: Text('Interview Invite',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
                     ),
                   ],
@@ -165,61 +184,107 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
                 ),
               ),
             ),
-            SizedBox(width: 20),
+            SizedBox(width: 10),
             Container(
-              height: 35,
-              child: ElevatedButton(
-                   onPressed: (){},
-                  style:ElevatedButton.styleFrom(
-                  backgroundColor: Colors.deepPurpleAccent,
+              alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(horizontal: 16,vertical: 4),
+              decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+
+                color: Colors.deepPurpleAccent,
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: PopupMenuTheme(
+                data: PopupMenuThemeData(
+                  color: Colors.deepPurpleAccent,
                   shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(4),
+
+                    borderRadius: BorderRadius.circular(5.0),
+                  ),
+                ),
+                child:  PopupMenuButton<String>(
+                  color: Colors.white,
+                  offset:  Offset(18,35),
+                  itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                    PopupMenuItem(
+                      height: 1,
+                      padding: EdgeInsets.fromLTRB(10,0, 0,0),
+                      child: Text('In Progress',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                    ),
+                    PopupMenuDivider(),
+                    PopupMenuItem(
+                      height: 1,
+                      padding: EdgeInsets.fromLTRB(10,0, 0,0),
+                      child: Text('Rejected',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                    ),
+                    PopupMenuDivider(),
+                    PopupMenuItem(
+                      height: 1,
+                      padding: EdgeInsets.fromLTRB(10,0, 0,0),
+                      child: Text('Interview Scheduled',style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),
+                    ),
+                  ],
+                  child: Row(
+                    children: [
+                      Text(
+                        'Status',
+                        style: TextStyle(fontWeight: FontWeight.bold,fontFamily: 'serif',color: Colors.white),
                       ),
-                   ),
-                   child: Text("Status",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 15),)
-                         ),
+                      Icon(Icons.keyboard_arrow_down,color: Colors.white,),
+                    ],
+                  ),
+                ),
+              ),
             ),
+
          ],
         )
       ],
     );
   }
 
-  Widget Person_data(){
-    return  SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: DataTable(
-        showCheckboxColumn: false,
-        headingRowColor: MaterialStateProperty.all(Colors.grey.shade100),
-        dividerThickness: 0,
-        border: TableBorder(
-          top: BorderSide(color: Colors.grey.shade300),
-          bottom: BorderSide(color: Colors.grey.shade300),
-          horizontalInside: BorderSide(color: Colors.grey.shade300),
+  Widget Person_data(screenWidth,isMobile){
+    return  Container(
+      height: 370,
+      width: isMobile?null:screenWidth,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        physics: BouncingScrollPhysics(),
+        child: DataTable(
+          showCheckboxColumn: false,
+          headingRowColor: MaterialStateProperty.all(Colors.grey.shade100),
+          dividerThickness: 0,
+          border: TableBorder(
+            top: BorderSide(color: Colors.grey.shade300),
+            bottom: BorderSide(color: Colors.grey.shade300),
+            left: BorderSide(color: Colors.grey.shade300),
+            right: BorderSide(color: Colors.grey.shade300),
+            horizontalInside: BorderSide(color: Colors.grey.shade300),
+          ),
+          columns: [
+            DataColumn(label: Text('SELECT',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+            DataColumn(label: Text('APP_ID',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+            DataColumn(label: Text('NAME',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+            DataColumn(label: Text('AGE',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+            DataColumn(label: Text('GENDER',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
+           ],
+          rows: data.map((row) {
+            return DataRow(
+              onSelectChanged: (selected){
+                if(selected==true){
+                   Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicantInfoScreen() ));
+                }
+              },
+              cells: [
+                DataCell(Checkbox(value: false, onChanged: (value) {})),
+                DataCell(Text(row['APPLICANT ID'])),
+                DataCell(Text(row['APPLICANT NAME'])),
+                DataCell(Text(row['AGE'])),
+                DataCell(Text(row['GENDER'])),
+              ],
+            );
+          }).toList(),
         ),
-        columns: [
-          DataColumn(label: Text('SELECT',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-          DataColumn(label: Text('APPLICANT ID',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-          DataColumn(label: Text('APPLICANT NAME',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-          DataColumn(label: Text('AGE',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-          DataColumn(label: Text('GENDER',style: TextStyle(fontFamily: "sens-serif",fontWeight: FontWeight.w700),)),
-         ],
-        rows: data.map((row) {
-          return DataRow(
-            onSelectChanged: (selected){
-              if(selected==true){
-                 Navigator.push(context, MaterialPageRoute(builder: (context) => ApplicantInfoScreen() ));
-              }
-            },
-            cells: [
-              DataCell(Checkbox(value: false, onChanged: (value) {})),
-              DataCell(Text(row['APPLICANT ID'])),
-              DataCell(Text(row['APPLICANT NAME'])),
-              DataCell(Text(row['AGE'])),
-              DataCell(Text(row['GENDER'])),
-            ],
-          );
-        }).toList(),
       ),
     );
   }

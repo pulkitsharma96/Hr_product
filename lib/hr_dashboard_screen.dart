@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:d_chart/d_chart.dart';
 import 'package:hr_product/DrawerFile.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HrDashboardScreen extends StatefulWidget {
   const HrDashboardScreen({super.key});
@@ -62,6 +63,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
          drawer: isMobile? DrawerScreen() : null,
          body: SingleChildScrollView(
            child: Container(
+             width: screenWidth,
+             height: isMobile? null : screenHeight,
              child: isMobile
                  ?Padding(
                padding: EdgeInsets.all(10),
@@ -109,30 +112,38 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                        ),
                        Padding(
                          padding: EdgeInsets.only(left: 20,top: 15,right: 20),
-                         child: Column(
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Row(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               children: [
-                                 Flexible(
-                                   child: Container(
-                                     height: screenHeight*0.45,
-                                     width: screenWidth*0.52,
-                                     child: _DashBoardCards(isMobile),
-                                   ),
-                                 ),
-                                 SizedBox(width: 28),
-                                 HRProfile(screenWidth,isMobile),
-                               ],
-                             ),
-                             Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                             DataWithPieChart(screenWidth,isMobile),
-                           ],
+                         child: Container(
+                           child: Row(
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                               Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                    Container(
+                                       height: screenHeight*0.45,
+                                       width: screenWidth*0.52,
+                                       child: _DashBoardCards(isMobile),
+                                     ),
+                                   Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                   SizedBox(height: 5),
+                                   DataWithPieChart(screenWidth,isMobile),
+                                 ],
+                               ),
+                                SizedBox(width:18),
+                                Column(
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 children: [
+                                   HRProfile(screenWidth,isMobile),
+                                   SizedBox(height: 18),
+                                   Data_Calendar(),
+                                 ],
+                               )
+                             ],
+                           ),
                          ),
                        ),
-
-
                      ],
                    ),
                  ),
@@ -221,8 +232,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
   }
   Widget HRProfile(double screenWidth,bool isMobile){
     return Container(
-      margin: EdgeInsets.only(top: 6),
-       height: 260,
+       height: 220,
+      width: 347,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -258,8 +269,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
             ),
           ),
           SizedBox(
-            height: 55,
-            width: isMobile?screenWidth*0.8: screenWidth*0.20,
+            height: 50,
+            width: isMobile?screenWidth*0.8: screenWidth*0.22,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -268,13 +279,12 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                   backgroundColor: Colors.black,
                   padding: EdgeInsets.symmetric(horizontal: 16),
                 ),
-
                 onPressed: (){},
                 child: Text("New Applicant",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
           ),
           SizedBox(
-            height: 55,
-            width: isMobile?screenWidth*0.8: screenWidth*0.20,
+            height: 50,
+            width: isMobile?screenWidth*0.8: screenWidth*0.22,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -295,7 +305,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
   Widget DataWithPieChart(double screenWidth,bool isMobile){
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
-      width: isMobile? 340: 600,
+      width: isMobile? 340: 700,
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(width: 1,color: Colors.white),
@@ -324,6 +334,31 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
           showChartValues: false,
         ),
       )
+    );
+  }
+  Widget Data_Calendar(){
+    return Container(
+      width: 347,
+      height: 310,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          border: Border.all(width: 1,color: Colors.white),
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 0.5,
+              blurRadius: 10,
+              offset: Offset(1,3),
+            )]
+      ),
+      child: TableCalendar(
+        calendarFormat: CalendarFormat.month,
+          rowHeight: 35.0,
+          firstDay: DateTime.utc(2010, 10, 16),
+          lastDay: DateTime.utc(2030, 3, 14),
+          focusedDay: DateTime.now(),
+        ),
     );
   }
 
