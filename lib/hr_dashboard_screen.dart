@@ -77,6 +77,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                        Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
                        SizedBox(height: 10,),
                        DataWithPieChart(screenWidth,isMobile),
+                       SizedBox(height: 10,),
+                       Data_Calendar(),
                      ],
                    ),
                  )
@@ -116,7 +118,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                            child: Row(
                              crossAxisAlignment: CrossAxisAlignment.start,
                              children: [
-                               Column(
+                                Column(
                                  mainAxisAlignment: MainAxisAlignment.start,
                                  crossAxisAlignment: CrossAxisAlignment.start,
                                  children: [
@@ -184,16 +186,18 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
           Stack(
             alignment: Alignment.center,
             children: [
-              SizedBox(
-                height: 97,
-                width: 97,
-                child: DChartPieO(
-                  animate: true,
-                  animationDuration: Duration(milliseconds: 1200),
-                  data: pieDataList,
-                  configRenderPie: ConfigRenderPie(
-                    arcWidth: 10,
-                    strokeWidthPx: 0,
+              Flexible(
+                child: SizedBox(
+                  height: 97,
+                  width: 97,
+                  child: DChartPieO(
+                    animate: true,
+                    animationDuration: Duration(milliseconds: 1200),
+                    data: pieDataList,
+                    configRenderPie: ConfigRenderPie(
+                      arcWidth: 10,
+                      strokeWidthPx: 0,
+                    ),
                   ),
                 ),
               ),
@@ -232,6 +236,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
   }
   Widget HRProfile(double screenWidth,bool isMobile){
     return Container(
+      color: Colors.white,
        height: 220,
       width: 347,
       child: Column(
@@ -303,37 +308,40 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
     );
   }
   Widget DataWithPieChart(double screenWidth,bool isMobile){
-    return Container(
-      padding: EdgeInsets.symmetric(vertical: 10),
-      width: isMobile? 340: 700,
-        decoration: BoxDecoration(
-            color: Colors.white,
-            border: Border.all(width: 1,color: Colors.white),
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 0.5,
-                blurRadius: 10,
-                offset: Offset(1,3),
-              )]
-        ),
-      child: PieChart(
-          dataMap: dataMap,
-        chartRadius: isMobile? screenWidth*0.35:screenWidth*0.14,
-        colorList: [Colors.deepPurpleAccent,Colors.deepPurpleAccent.shade700,
-          Colors.deepPurpleAccent.shade400,Colors.deepPurpleAccent.shade100],
-        legendOptions: LegendOptions(
-          legendPosition: LegendPosition.right,
-          legendShape: BoxShape.rectangle,
-          legendTextStyle: TextStyle(
-            fontWeight: FontWeight.bold,
+    return FittedBox(
+      fit: BoxFit.fill,
+      child: Container(
+        padding: EdgeInsets.symmetric(vertical: 10),
+        width: isMobile? 340: screenWidth*0.51,
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 1,color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 0.5,
+                  blurRadius: 10,
+                  offset: Offset(1,3),
+                )]
           ),
-        ),
-        chartValuesOptions: ChartValuesOptions(
-          showChartValues: false,
-        ),
-      )
+        child: PieChart(
+            dataMap: dataMap,
+          chartRadius: isMobile? screenWidth*0.35:screenWidth*0.14,
+          colorList: [Colors.deepPurpleAccent,Colors.deepPurpleAccent.shade700,
+            Colors.deepPurpleAccent.shade400,Colors.deepPurpleAccent.shade100],
+          legendOptions: LegendOptions(
+            legendPosition: LegendPosition.right,
+            legendShape: BoxShape.rectangle,
+            legendTextStyle: TextStyle(
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          chartValuesOptions: ChartValuesOptions(
+            showChartValues: false,
+          ),
+        )
+      ),
     );
   }
   Widget Data_Calendar(){
@@ -361,5 +369,4 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
         ),
     );
   }
-
 }

@@ -33,7 +33,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: ListView(
         children: [
           Container(
-            height: 60,
+            height: 130,
+            padding: EdgeInsets.symmetric(vertical: 8),
             child: DrawerHeader(
               decoration: BoxDecoration(
                 color: Colors.deepPurpleAccent,
@@ -43,7 +44,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
                 'HR Admin',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 26,
+                  fontSize: 28,
                 ),
               ),
             ),
@@ -52,6 +53,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
             int index = entry.key;
             var item = entry.value;
             return ListTile(
+              contentPadding: EdgeInsets.all(10),
               leading: Icon(item['icon'],color: Colors.white,),
               title: Text(item['text'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
               onTap: () {
