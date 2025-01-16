@@ -45,23 +45,24 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
               actions: [
                 IconButton(onPressed: () {},
                     icon: Icon(Icons.notifications_outlined, size: 27,)),
+                Text("    "),
               ],
             ) ,
             body: SingleChildScrollView(
               child: Container(
-                padding: EdgeInsets.all(10),
+                padding: EdgeInsets.symmetric(vertical: 10,horizontal: 10),
                 child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Profile(isMobile),
                         Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
                             width: screenWidth*0.35,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Skills(isMobile),
                                 Experience(isMobile),
@@ -70,12 +71,14 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
                             ),
                           ),
                           Container(
-                            width: screenWidth*0.59,
+                           // color: Colors.redAccent,
+                            width: screenWidth*0.57,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 Profile_Summary(isMobile),
-                                Qualification(),
+                                Qualification(isMobile),
                                 Projects(isMobile),
                               ],
                             ),
@@ -129,6 +132,7 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
               ),
               Spacer(),
               Container(
+                margin: EdgeInsets.only(right: 20),
                 height: 90,
                 width: 190,
                 child: ListView.builder(
@@ -169,6 +173,7 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
             Text("Skills : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
             Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
+              padding: EdgeInsets.only(top: 10),
               height: isMobile?100:80,
               child: Text(data[0]["skills"],style: TextStyle(color: Colors.black,fontSize: 16),),
             ),
@@ -213,9 +218,9 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
     return Container(
       //height: isMobile?220:130,
       padding: EdgeInsets.all(10),
-      margin: EdgeInsets.only(left: 18),
+      //margin: EdgeInsets.only(left: 18),
       child: Container(
-        height: isMobile?190:90,
+        height: isMobile?120:105,
         child: ListView(
           children: [
             Text("Profile Summary : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
@@ -234,18 +239,18 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
 
     );
   }
-  Widget Qualification(){
+  Widget Qualification(isMobile){
     return Container(
        // height: 220,
         padding: EdgeInsets.all(10),
-        margin: EdgeInsets.only(left: 18),
+       // margin: EdgeInsets.only(left: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text("Qualification : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
             Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
-              height: 175,
+              height: isMobile?235:165,
               child: ListView.builder(
                   itemCount: 2,
                   itemBuilder: (context,index){
@@ -277,8 +282,8 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
   Widget Projects(isMobile){
     return Container(
        // height: isMobile?290:220,
-        padding: EdgeInsets.all(10),
-        margin: EdgeInsets.only(left: 18),
+        padding: EdgeInsets.symmetric(horizontal: 10),
+       // margin: EdgeInsets.only(left: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -303,13 +308,14 @@ class _ApplicantInfoScreenState extends State<ApplicantInfoScreen> {
   }
   Widget Language(){
     return Container(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Language Known : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
+            Text("Language : ",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,fontSize: 16),),
             Divider(thickness: 2,color: Colors.black,height:1,endIndent: 8,),
             Container(
+              margin: EdgeInsets.only(top: 10),
               height: 165,
               child: Text("Hindi : Native\nEnglish : Intermediate\nFrench : Beginner",style: TextStyle(color: Colors.black,fontSize: 16),),
            ),

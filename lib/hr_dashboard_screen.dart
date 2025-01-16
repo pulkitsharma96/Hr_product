@@ -65,11 +65,12 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
            scrollDirection: Axis.vertical,
            child: Container(
              width: screenWidth,
-           //  height: isMobile? null : screenHeight,
+             height: isMobile? null : screenHeight,
              child: isMobile
                  ?Padding(
                padding: EdgeInsets.all(10),
                    child: Column(
+                     crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
                        HRProfile(screenWidth,isMobile),
                        SizedBox(height: 20,),
@@ -114,39 +115,42 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                          ],
                        ),
                        SingleChildScrollView(
-                         scrollDirection: Axis.horizontal,
+                         scrollDirection: Axis.vertical,
                          child: Padding(
                            padding: EdgeInsets.only(left: 30,top: 15,right: 30),
-                           child: Container(
-                             child: Row(
-                               crossAxisAlignment: CrossAxisAlignment.start,
-                               mainAxisAlignment: MainAxisAlignment.start,
-                               children: [
-                                  Column(
-                                   mainAxisAlignment: MainAxisAlignment.start,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                      Container(
-                                         height: screenHeight * 0.46,
-                                         width: screenWidth * 0.5,
-                                         child: _DashBoardCards(isMobile),
-                                       ),
-                                     Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                     SizedBox(height: 5),
-                                     DataWithPieChart(screenWidth,isMobile),
-                                   ],
-                                 ),
-                                  SizedBox(width:18),
-                                  Column(
-                                   mainAxisAlignment: MainAxisAlignment.start,
-                                   crossAxisAlignment: CrossAxisAlignment.start,
-                                   children: [
-                                     HRProfile(screenWidth,isMobile),
-                                     SizedBox(height: 18),
-                                     Data_Calendar(),
-                                   ],
-                                 ),
-                               ],
+                           child: SingleChildScrollView(
+                             scrollDirection: Axis.horizontal,
+                             child: Container(
+                               child: Row(
+                                 crossAxisAlignment: CrossAxisAlignment.start,
+                                 mainAxisAlignment: MainAxisAlignment.start,
+                                 children: [
+                                    Column(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                        Container(
+                                           height: screenHeight * 0.46,
+                                           width: screenWidth * 0.5,
+                                           child: _DashBoardCards(isMobile),
+                                         ),
+                                       Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                                       SizedBox(height: 5),
+                                       DataWithPieChart(screenWidth,isMobile),
+                                     ],
+                                   ),
+                                    SizedBox(width:18),
+                                    Column(
+                                     mainAxisAlignment: MainAxisAlignment.start,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       HRProfile(screenWidth,isMobile),
+                                       SizedBox(height: 18),
+                                       Data_Calendar(),
+                                     ],
+                                   ),
+                                 ],
+                               ),
                              ),
                            ),
                          ),
