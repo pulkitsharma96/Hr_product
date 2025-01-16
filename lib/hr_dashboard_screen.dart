@@ -40,7 +40,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints){
-        bool isMobile = constraints.maxWidth<600;
+        bool isMobile = constraints.maxWidth<800;
         return  Scaffold(
           backgroundColor: Colors.white,
 
@@ -61,14 +61,14 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
           )
           : null,
          drawer: isMobile? DrawerScreen() : null,
-         body: SingleChildScrollView(
-           scrollDirection: Axis.vertical,
-           child: Container(
-             width: screenWidth,
-             height: isMobile? null : screenHeight,
-             child: isMobile
-                 ?Padding(
-               padding: EdgeInsets.all(10),
+         body: Container(
+           width: screenWidth,
+           height: isMobile? null : screenHeight,
+           child: isMobile
+               ?Padding(
+             padding: EdgeInsets.all(10),
+                 child: SingleChildScrollView(
+                   scrollDirection: Axis.vertical,
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
@@ -80,86 +80,78 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                        SizedBox(height: 10,),
                        DataWithPieChart(screenWidth,isMobile),
                        SizedBox(height: 10,),
-                       Data_Calendar(),
+                       Data_Calendar(screenWidth,screenHeight,isMobile),
                      ],
                    ),
-                 )
-                 : Row(
-               mainAxisAlignment: MainAxisAlignment.start,
-               crossAxisAlignment: CrossAxisAlignment.start,
-               children: [
-                 if(!isMobile) SizedBox(
-                   width: 250,
-                     height: screenHeight,
-                     child: DrawerScreen(),
                  ),
-                 Expanded(
-                   child: Column(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       AppBar(
-                         automaticallyImplyLeading: false,
-                         backgroundColor: Colors.white,
-                         title: Column(
-                           mainAxisAlignment: MainAxisAlignment.start,
-                           crossAxisAlignment: CrossAxisAlignment.start,
-                           children: [
-                             Text("Hello Taruk,",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
-                             Text("Welcome back,have a good day",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
-                           ],
-                         ),
-                         actions: [
-                           IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
-                           IconButton(onPressed: () {}, icon: Icon(Icons.notifications_outlined)),
+               )
+               : Row(
+             mainAxisAlignment: MainAxisAlignment.start,
+             crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               if(!isMobile) SizedBox(
+                 width: 250,
+                   height: screenHeight,
+                   child: DrawerScreen(),
+               ),
+               Expanded(
+                 child: Column(
+                   mainAxisAlignment: MainAxisAlignment.start,
+                   crossAxisAlignment: CrossAxisAlignment.start,
+                   children: [
+                     AppBar(
+                       automaticallyImplyLeading: false,
+                       backgroundColor: Colors.white,
+                       title: Column(
+                         mainAxisAlignment: MainAxisAlignment.start,
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         children: [
+                           Text("Hello Taruk,",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+                           Text("Welcome back,have a good day",style: TextStyle(fontSize: 14,fontWeight: FontWeight.w500),),
                          ],
                        ),
-                       SingleChildScrollView(
-                         scrollDirection: Axis.vertical,
-                         child: Padding(
-                           padding: EdgeInsets.only(left: 30,top: 15,right: 30),
-                           child: SingleChildScrollView(
-                             scrollDirection: Axis.horizontal,
-                             child: Container(
-                               child: Row(
-                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                 mainAxisAlignment: MainAxisAlignment.start,
-                                 children: [
-                                    Column(
-                                     mainAxisAlignment: MainAxisAlignment.start,
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                        Container(
-                                           height: screenHeight * 0.46,
-                                           width: screenWidth * 0.5,
-                                           child: _DashBoardCards(isMobile),
-                                         ),
-                                       Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
-                                       SizedBox(height: 5),
-                                       DataWithPieChart(screenWidth,isMobile),
-                                     ],
-                                   ),
-                                    SizedBox(width:18),
-                                    Column(
-                                     mainAxisAlignment: MainAxisAlignment.start,
-                                     crossAxisAlignment: CrossAxisAlignment.start,
-                                     children: [
-                                       HRProfile(screenWidth,isMobile),
-                                       SizedBox(height: 18),
-                                       Data_Calendar(),
-                                     ],
-                                   ),
-                                 ],
-                               ),
-                             ),
+                       actions: [
+                         IconButton(onPressed: () {}, icon: Icon(Icons.search_rounded)),
+                         IconButton(onPressed: () {}, icon: Icon(Icons.notifications_outlined)),
+                       ],
+                     ),
+                     Padding(
+                       padding: EdgeInsets.only(left: 30,top: 15,right: 30),
+                       child: Row(
+                         crossAxisAlignment: CrossAxisAlignment.start,
+                         mainAxisAlignment: MainAxisAlignment.start,
+                         children: [
+                            Column(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             crossAxisAlignment: CrossAxisAlignment.start,
+                             children: [
+                                Container(
+                                   height: screenHeight * 0.46,
+                                   width: screenWidth * 0.5,
+                                   child: _DashBoardCards(isMobile),
+                                 ),
+                               Text("Applicants by interview stage",style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20),),
+                               SizedBox(height: 5),
+                               DataWithPieChart(screenWidth,isMobile),
+                             ],
                            ),
-                         ),
+                            SizedBox(width:18),
+                            Column(
+                             mainAxisAlignment: MainAxisAlignment.start,
+                             crossAxisAlignment: CrossAxisAlignment.end,
+                             children: [
+                               HRProfile(screenWidth,isMobile),
+                               SizedBox(height: 18),
+                               Data_Calendar(screenWidth,screenHeight,isMobile),
+                             ],
+                           ),
+                         ],
                        ),
-                     ],
-                   ),
+                     ),
+                   ],
                  ),
-               ],
-             ),
+               ),
+             ],
            ),
          ),
         );
@@ -181,47 +173,48 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
             offset: Offset(1,3),
           )]
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            children: [
-              Text(title),
-              Spacer(),
-              Text("All"),
-            ],
-          ),
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              SizedBox(
-                height: 97,
-                width: 97,
-                child: DChartPieO(
-                  animate: true,
-                  animationDuration: Duration(milliseconds: 1200),
-                  data: pieDataList,
-                  configRenderPie: ConfigRenderPie(
-                    arcWidth: 10,
-                    strokeWidthPx: 0,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.vertical,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(title),
+                Spacer(),
+                Text("All"),
+              ],
+            ),
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                 height: 97,
+                  child: DChartPieO(
+                    animate: true,
+                    animationDuration: Duration(milliseconds: 1200),
+                    data: pieDataList,
+                    configRenderPie: ConfigRenderPie(
+                      arcWidth: 10,
+                      strokeWidthPx: 2,
+                    ),
                   ),
                 ),
-              ),
-              Center(
-                child: Text(
-                  '65%',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 10,
-                    color: Colors.black87,
+                  Center(
+                  child: Text(
+                    '65%',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 10,
+                      color: Colors.black87,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -324,7 +317,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
   }
   Widget DataWithPieChart(double screenWidth,bool isMobile){
     return Container(
-      width: isMobile? 340: screenWidth*0.5,
+      width: isMobile? screenWidth*0.95: screenWidth*0.5,
+        //ismobile?340
         decoration: BoxDecoration(
             color: Colors.white,
             border: Border.all(width: 1,color: Colors.white),
@@ -355,10 +349,12 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
       )
     );
   }
-  Widget Data_Calendar(){
+  Widget Data_Calendar(screenWidth,screenHeight,isMobile){
     return Container(
-      width: 347,
-      height: 375,
+      // width: 347,
+      // height: 375,
+      width: isMobile?screenWidth*0.945 : screenWidth * 0.25,
+      height: screenHeight*0.59,
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(width: 1,color: Colors.white),
@@ -371,13 +367,15 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
               offset: Offset(1,3),
             )]
       ),
-      child: TableCalendar(
-        calendarFormat: CalendarFormat.month,
-          rowHeight: 35.0,
-          firstDay: DateTime.utc(2010, 10, 16),
-          lastDay: DateTime.utc(2030, 3, 14),
-          focusedDay: DateTime.now(),
-        ),
+      child: SingleChildScrollView(
+        child: TableCalendar(
+          calendarFormat: CalendarFormat.month,
+            rowHeight: 35.0,
+            firstDay: DateTime.utc(2010, 10, 16),
+            lastDay: DateTime.utc(2030, 3, 14),
+            focusedDay: DateTime.now(),
+          ),
+      ),
     );
   }
 }
