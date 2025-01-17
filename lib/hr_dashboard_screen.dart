@@ -89,11 +89,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
              mainAxisAlignment: MainAxisAlignment.start,
              crossAxisAlignment: CrossAxisAlignment.start,
              children: [
-               if(!isMobile) SizedBox(
-                 width: 250,
-                   height: screenHeight,
-                   child: DrawerScreen(),
-               ),
+               if(!isMobile) DrawerScreen(),
                Expanded(
                  child: Column(
                    mainAxisAlignment: MainAxisAlignment.start,
@@ -136,15 +132,17 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                              ],
                            ),
                             SizedBox(width:18),
-                            Column(
-                             mainAxisAlignment: MainAxisAlignment.start,
-                             crossAxisAlignment: CrossAxisAlignment.end,
-                             children: [
-                               HRProfile(screenWidth,isMobile),
-                               SizedBox(height: 18),
-                               Data_Calendar(screenWidth,screenHeight,isMobile),
-                             ],
-                           ),
+                            Expanded(
+                              child: Column(
+                               mainAxisAlignment: MainAxisAlignment.start,
+                               crossAxisAlignment: CrossAxisAlignment.end,
+                               children: [
+                                 HRProfile(screenWidth,isMobile),
+                                 // SizedBox(height: 18),
+                                 // Data_Calendar(screenWidth,screenHeight,isMobile),
+                               ],
+                                                         ),
+                            ),
                          ],
                        ),
                      ),
@@ -160,21 +158,21 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
     }
   Widget Infotmation_DoughNut(String title, int count){
     return Container(
+      color: Colors.white,
       padding: EdgeInsets.only(left: 10,right: 10,top: 10),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border.all(width: 1,color: Colors.white),
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 0.5,
-            blurRadius: 10,
-            offset: Offset(1,3),
-          )]
-      ),
+      // decoration: BoxDecoration(
+      //   color: Colors.white,
+      //   border: Border.all(width: 1,color: Colors.white),
+      //   borderRadius: BorderRadius.circular(10),
+      //   boxShadow: [
+      //     BoxShadow(
+      //       color: Colors.grey.withOpacity(0.5),
+      //       spreadRadius: 0.5,
+      //       blurRadius: 10,
+      //       offset: Offset(1,3),
+      //     )]
+      // ),
       child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -190,7 +188,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
               alignment: Alignment.center,
               children: [
                 Container(
-                 height: 97,
+                  height: 100,
+                  width: 100,
                   child: DChartPieO(
                     animate: true,
                     animationDuration: Duration(milliseconds: 1200),
@@ -219,100 +218,95 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
     );
   }
   Widget _DashBoardCards(bool isMobile){
-    return  GridView.count(
-      shrinkWrap: true,
-      crossAxisCount: 2,
-      mainAxisSpacing: 10,
-      crossAxisSpacing: 10,
-      childAspectRatio: isMobile? 1.25: 2.4,
-      physics: NeverScrollableScrollPhysics(),
-
-      children: [
-        Infotmation_DoughNut('Resumes', 65),
-        Infotmation_DoughNut('Active Applicants', 50),
-        Infotmation_DoughNut('Scheduled Interviews', 30),
-        Infotmation_DoughNut('Pending Feedback', 10),
-      ],
+    return  Expanded(
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 10,
+          crossAxisSpacing: 10,
+          childAspectRatio: isMobile? 1.25: 2.4,),
+          itemCount: 4 ,
+      
+          //    crossAxisCount: 2,
+        itemBuilder: (context,index){
+          return  Infotmation_DoughNut('Resumes', 65);
+        },
+      
+        // children: [
+        //
+        //   Infotmation_DoughNut('Active Applicants', 50),
+        //   Infotmation_DoughNut('Scheduled Interviews', 30),
+        //   Infotmation_DoughNut('Pending Feedback', 10),
+        // ],
+      ),
     );
   }
   Widget HRProfile(double screenWidth,bool isMobile){
-    return Container(
-      width: isMobile? screenWidth:screenWidth*0.25,
-      color: Colors.white,
-      child: Column(
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(horizontal: 30,vertical: 15),
+          decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border.all(width: 1,color: Colors.white),
+              borderRadius: BorderRadius.circular(10),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: 0.5,
+                  blurRadius: 10,
+                  offset: Offset(1,3),
+                )]
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Mr. Taruk",style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold)),
+                  Text("HR Manager",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
+                ],
+              ),
+              Spacer(),
+              CircleAvatar(
+                radius: 25,
+                backgroundImage: AssetImage("assets/images/hr_manager.jpg"),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: 10,),
+        Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 30,vertical: 15),
-            decoration: BoxDecoration(
-                color: Colors.white,
-                border: Border.all(width: 1,color: Colors.white),
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: 0.5,
-                    blurRadius: 10,
-                    offset: Offset(1,3),
-                  )]
-            ),
-            child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("Mr. Taruk",style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold)),
-                    Text("HR Manager",style: TextStyle(fontSize: 12,fontWeight: FontWeight.w500))
-                  ],
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
                 ),
-                Spacer(),
-                CircleAvatar(
-                  radius: 25,
-                  backgroundImage: AssetImage("assets/images/hr_manager.jpg"),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 10,),
-          Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              height: 50,
-              width: isMobile?screenWidth*0.46:screenWidth*0.121,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    backgroundColor: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                  ),
-                  onPressed: (){},
-                  child: Text("New Applicant",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
-            ),
-            SizedBox(
-              height: 50,
-              width:  isMobile?screenWidth*0.46:screenWidth*0.121,
-              child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-                    backgroundColor: Colors.black,
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                  ),
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+              ),
+              onPressed: (){},
+              child: Text("New Applicant",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
+          ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(7),
+                ),
+                backgroundColor: Colors.black,
+                padding: EdgeInsets.symmetric(horizontal: 16),
+              ),
 
-                  onPressed: (){},
-                  child: Text("New Interview",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
-            ),
-          ],
-        )
-          
+              onPressed: (){},
+              child: Text("New Interview",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
         ],
-      ),
+      )
+
+      ],
     );
   }
   Widget DataWithPieChart(double screenWidth,bool isMobile){

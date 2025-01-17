@@ -32,34 +32,45 @@ class _DrawerScreenState extends State<DrawerScreen> {
       backgroundColor: Colors.deepPurpleAccent,
       child: ListView(
         children: [
-          Container(
-            height: 130,
-            padding: EdgeInsets.symmetric(vertical: 8),
-            child: DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.deepPurpleAccent,
-                borderRadius: BorderRadius.zero,
-              ),
-              child: Text(
-                'HR Admin',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 28,
-                ),
+          DrawerHeader(
+            // decoration: BoxDecoration(
+            //   color: Colors.deepPurpleAccent,
+            //   borderRadius: BorderRadius.zero,
+            // ),
+
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    'HR Admin',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 28,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           ...sidebar_data.asMap().entries.map((entry){
             int index = entry.key;
             var item = entry.value;
-            return ListTile(
-              contentPadding: EdgeInsets.all(10),
-              leading: Icon(item['icon'],color: Colors.white,),
-              title: Text(item['text'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
-              onTap: () {
-                Navigator.push(context, MaterialPageRoute(
-                    builder: (context)=> item['screen'] ));
-              },
+            return Column(
+              children: [
+
+                ListTile(
+
+                  leading: Icon(item['icon'],color: Colors.white,),
+                  title: Text(item['text'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(
+                        builder: (context)=> item['screen'] ));
+                  },
+                ),
+                SizedBox(height: 10,),
+              ],
             );
           }).toList(),
         ],
