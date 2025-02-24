@@ -43,7 +43,6 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
         bool isMobile = constraints.maxWidth<800;
         return  Scaffold(
           backgroundColor: Colors.white,
-
           appBar: isMobile? AppBar(
             backgroundColor: Colors.white,
             title: Column(
@@ -58,9 +57,8 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
               IconButton(onPressed: (){}, icon: Icon(Icons.search_rounded)),
               IconButton(onPressed: (){}, icon: Icon(Icons.notifications_outlined)),
             ],
-          )
-          : null,
-         drawer: isMobile? DrawerScreen() : null,
+          ) : null,
+          drawer: isMobile? DrawerScreen() : null,
          body: Container(
            width: screenWidth,
            height: isMobile? null : screenHeight,
@@ -72,7 +70,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                    child: Column(
                      crossAxisAlignment: CrossAxisAlignment.start,
                      children: [
-                       HRProfile(screenWidth,isMobile),
+                       HRProfile(),
                        SizedBox(height: 20,),
                       _DashBoardCards(isMobile),
                        SizedBox(height: 10,),
@@ -137,9 +135,9 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
                                mainAxisAlignment: MainAxisAlignment.start,
                                crossAxisAlignment: CrossAxisAlignment.end,
                                children: [
-                                 HRProfile(screenWidth,isMobile),
-                                 // SizedBox(height: 18),
-                                 // Data_Calendar(screenWidth,screenHeight,isMobile),
+                                 HRProfile(),
+                                 SizedBox(height: 18),
+                                 Data_Calendar(screenWidth,screenHeight,isMobile),
                                ],
                                                          ),
                             ),
@@ -158,20 +156,19 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
     }
   Widget Infotmation_DoughNut(String title, int count){
     return Container(
-      color: Colors.white,
       padding: EdgeInsets.only(left: 10,right: 10,top: 10),
-      // decoration: BoxDecoration(
-      //   color: Colors.white,
-      //   border: Border.all(width: 1,color: Colors.white),
-      //   borderRadius: BorderRadius.circular(10),
-      //   boxShadow: [
-      //     BoxShadow(
-      //       color: Colors.grey.withOpacity(0.5),
-      //       spreadRadius: 0.5,
-      //       blurRadius: 10,
-      //       offset: Offset(1,3),
-      //     )]
-      // ),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        border: Border.all(width: 1,color: Colors.white),
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 0.5,
+            blurRadius: 10,
+            offset: Offset(1,3),
+          )]
+      ),
       child: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,12 +223,12 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
           crossAxisSpacing: 10,
           childAspectRatio: isMobile? 1.25: 2.4,),
           itemCount: 4 ,
-      
+
           //    crossAxisCount: 2,
         itemBuilder: (context,index){
           return  Infotmation_DoughNut('Resumes', 65);
         },
-      
+
         // children: [
         //
         //   Infotmation_DoughNut('Active Applicants', 50),
@@ -241,7 +238,7 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
       ),
     );
   }
-  Widget HRProfile(double screenWidth,bool isMobile){
+  Widget HRProfile(){
     return Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -282,27 +279,31 @@ class _HrDashboardScreenState extends State<HrDashboardScreen> {
         Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
+          Expanded(
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                 ),
-                backgroundColor: Colors.black,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-              ),
-              onPressed: (){},
-              child: Text("New Applicant",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
-          ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(7),
+                onPressed: (){},
+                child: Text("New Applicant",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
+          ),
+          Expanded(
+            child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  backgroundColor: Colors.black,
+                  padding: EdgeInsets.symmetric(horizontal: 16),
                 ),
-                backgroundColor: Colors.black,
-                padding: EdgeInsets.symmetric(horizontal: 16),
-              ),
-
-              onPressed: (){},
-              child: Text("New Interview",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
+            
+                onPressed: (){},
+                child: Text("New Interview",style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 14),)),
+          ),
         ],
       )
 

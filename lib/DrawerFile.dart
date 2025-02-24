@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hr_product/hr_dashboard_screen.dart';
+import 'package:hr_product/interviewScheduling.dart';
 import 'package:hr_product/login_Screen.dart';
 import 'package:hr_product/resumeManage_Screen.dart';
 
@@ -12,12 +13,11 @@ class DrawerScreen extends StatefulWidget {
 
 class _DrawerScreenState extends State<DrawerScreen> {
 
-
   List<Map<String,dynamic>> sidebar_data = [
     {'text' : 'Dashboard','icon':Icons.home_outlined ,'screen': HrDashboardScreen()},
     {'text' : 'Resumes','icon': Icons.contact_page_outlined, 'screen': ResumemanageScreen()},
     {'text' : 'Applicant Tracking','icon':Icons.spatial_tracking_outlined,'screen': HrDashboardScreen()},
-    {'text' : 'Interview Scheduling','icon':Icons.calendar_month_outlined,'screen': HrDashboardScreen()},
+    {'text' : 'Interview Scheduling','icon':Icons.calendar_month_outlined,'screen': Interview_Screen()},
     {'text' : 'Interview Assignment','icon':Icons.assignment_outlined,'screen': HrDashboardScreen()},
     {'text' : 'Report','icon':Icons.report_gmailerrorred_rounded,'screen': HrDashboardScreen()},
     {'text' : 'Logout','icon':Icons.logout_rounded,'screen': LogIn_Screen()},
@@ -26,6 +26,7 @@ class _DrawerScreenState extends State<DrawerScreen> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      width: 250,
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.zero
       ),
@@ -33,25 +34,18 @@ class _DrawerScreenState extends State<DrawerScreen> {
       child: ListView(
         children: [
           DrawerHeader(
-            // decoration: BoxDecoration(
-            //   color: Colors.deepPurpleAccent,
-            //   borderRadius: BorderRadius.zero,
-            // ),
-
-            child: Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    'HR Admin',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 28,
-                    ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  'HR Admin',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 30,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
           ...sidebar_data.asMap().entries.map((entry){
@@ -59,9 +53,8 @@ class _DrawerScreenState extends State<DrawerScreen> {
             var item = entry.value;
             return Column(
               children: [
-
                 ListTile(
-
+                 // contentPadding : EdgeInsets.zero,
                   leading: Icon(item['icon'],color: Colors.white,),
                   title: Text(item['text'],style: TextStyle(color: Colors.white,fontWeight: FontWeight.w500),),
                   onTap: () {

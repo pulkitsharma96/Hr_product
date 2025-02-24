@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hr_product/hr_dashboard_screen.dart';
-import 'package:hr_product/login_Screen.dart';
+import 'package:hr_product/interviewScheduling.dart';
 
 void main() {
   runApp(const MyApp());
@@ -19,7 +18,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       debugShowCheckedModeBanner: false,
-      home: HrDashboardScreen(),
+      home: Interview_Screen(),
     );
   }
 }

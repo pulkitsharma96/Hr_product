@@ -242,7 +242,6 @@ class _ResumemanageScreenState extends State<ResumemanageScreen> {
       ],
     );
   }
-
   Widget Person_data(screenWidth,isMobile){
     return  Container(
       height: 370,
