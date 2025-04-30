@@ -1,6 +1,8 @@
-import 'package:d_chart/d_chart.dart';
+ import 'package:d_chart/d_chart.dart';
 import 'package:d_chart/ordinal/pie.dart';
 import 'package:flutter/material.dart';
+ import 'package:hr_product/resume.dart';
+
 
 import 'package:table_calendar/table_calendar.dart';
 
@@ -28,7 +30,6 @@ class _DashboardState extends State<Dashboard> {
     OrdinalData(domain: 'Offer', measure: 10, color: Colors.purple.shade800),
   ];
   DateTime today = DateTime.now();
-
 
   @override
   Widget build(BuildContext context) {
@@ -322,7 +323,12 @@ class _DashboardState extends State<Dashboard> {
               "Resumes",
               style: TextStyle(color: Colors.white),
             ),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) =>  Resume()),
+              );
+            },
           ),
           ListTile(
             leading: Icon(
@@ -382,7 +388,7 @@ class _DashboardState extends State<Dashboard> {
         _buildDashboardCard("Resumes", "180"),
         _buildDashboardCard("Active Applicants", "20"),
         _buildDashboardCard("Scheduled Interviews", "10"),
-        _buildDashboardCard("Pending Feedback", "500/1000"),
+        _buildDashboardCard("Pending Feedback", "50/100"),
       ],
     );
   }
@@ -550,7 +556,7 @@ minimumSize: Size(double.infinity, 35),
         child: TableCalendar(
           focusedDay: today,
           firstDay: DateTime.utc(2010, 10, 16), // coordinated universal time
-          lastDay: DateTime.utc(2024, 12, 26),
+          lastDay: DateTime.utc(2025, 12, 26),
         ),
       ),
     );

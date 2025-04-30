@@ -1,6 +1,9 @@
-import 'package:flutter/foundation.dart';
+// import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:hr_product/dashboard.dart';
 import 'package:hr_product/signup.dart';
+import 'package:hr_product/forgot.dart';
+
 
 class Loginform extends StatefulWidget {
   const Loginform({super.key});
@@ -110,11 +113,18 @@ class _LoginformState extends State<Loginform> {
               children: [
                 Text("Password", style: TextStyle(fontWeight: FontWeight
                     .bold),),
-
-                Text("Forgot Password?",
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Forgot()));
+                  },
+               child:  Text("Forgot Password?",
                   style: TextStyle(color: Colors.purple,
                       decoration: TextDecoration.underline,
                       decorationColor: Colors.purple),)
+                ),
               ],
             ),
             SizedBox(height: 10,),
@@ -133,7 +143,7 @@ class _LoginformState extends State<Loginform> {
                 onPressed: (){
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) =>   Signup  ()),
+                    MaterialPageRoute(builder: (context) =>   Dashboard ()),
                   );
                 },
 
@@ -145,8 +155,7 @@ class _LoginformState extends State<Loginform> {
 
                     backgroundColor: Colors.purple),
 
-                child: Text("LOGIN", style: TextStyle(color: Colors
-                    .white),),
+                child: Text("LOGIN", style: TextStyle(color: Colors.white),),
 
               ),
             ),
@@ -157,10 +166,17 @@ class _LoginformState extends State<Loginform> {
 
                 Text("Don't have an account yet? ",
                   style: TextStyle(color: Colors.grey),),
-                SizedBox(width: 6,),
-                Text("Sign Up", style: TextStyle(color: Colors.purple,
-                    decoration: TextDecoration.underline,
-                    decorationColor: Colors.purple),)
+                InkWell(
+                  onTap: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Signup  ()));
+                  },
+                  child: Text(" SignUp",style: TextStyle(color: Colors.deepPurpleAccent,
+                      decoration: TextDecoration.underline,
+                      fontWeight: FontWeight.bold,decorationColor: Colors.deepPurpleAccent)),
+                ),
               ],
             ),
 

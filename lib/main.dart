@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:hr_product/forgot.dart';
 import 'package:hr_product/resume.dart';
+import 'package:hr_product/loginform.dart';
+import 'package:hr_product/dashboard.dart';
+import 'package:hr_product/signup.dart';
 
-import 'dashboard.dart';
-import 'loginform.dart';
+
+
+
+// import 'dashboard.dart';
+// import 'loginform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -36,7 +43,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: Resume (),
+      home: Loginform(),
     );
   }
 }
